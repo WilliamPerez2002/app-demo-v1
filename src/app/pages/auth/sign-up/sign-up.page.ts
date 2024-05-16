@@ -65,6 +65,9 @@ export class SignUpPage implements OnInit {
     delete this.form.value.password;
 
     this.firebase.setDocument(path, this.form.value).then(res => {
+
+      this.utils.saveInLocalStorage('user', this.form.value)
+
       this.utils.routerLink('/main/home');
 
     }).catch(err => {
@@ -75,6 +78,7 @@ export class SignUpPage implements OnInit {
         icon: 'alert-circle-outline',
         duration: 10000
       }).finally(() => {
+
       });
 
 
