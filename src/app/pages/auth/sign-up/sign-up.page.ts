@@ -30,9 +30,9 @@ export class SignUpPage implements OnInit {
 
   async submit() {
 
-    const loading = await this.utils.loading();;
+    const loading = await this.utils.loading();
 
-    loading.present();
+    await loading.present();
 
     this.firebase.signUp(this.form.value as User).then(res => {
       this.firebase.updateProfile(this.form.value.name)
@@ -47,18 +47,20 @@ export class SignUpPage implements OnInit {
         position: 'middle',
         icon: 'alert-circle-outline',
         duration: 10000
-      }).finally(() => {
-        loading.dismiss();
-      });
+      })
 
 
-    });
+    }).finally(() => {
+      console.log('ME EJECUTO AQUO');
+      loading.dismiss();
+    });;
 
 
 
   }
 
   setUserInfo(uid: string) {
+
 
     let path = `users/${uid}`
 
