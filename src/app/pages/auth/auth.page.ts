@@ -19,7 +19,7 @@ export class AuthPage implements OnInit {
   firebase = inject(FirebaseService)
 
   utils = inject(UtilsService);
-  
+
   constructor() { }
 
   ngOnInit() {
@@ -27,24 +27,39 @@ export class AuthPage implements OnInit {
 
   async submit() {
 
-    const loading = await this.utils.loading(); ;
+    const loading = await this.utils.loading();;
 
     loading.present();
 
-    this.firebase.signIn(this.form.value as User).then( res => {
-    }).catch( err => {
+    this.firebase.signIn(this.form.value as User).then(res => {
+
+      console.log(res.user);
+
+      const user = {
+        uid: res.user.uid,
+        email: res.user.email,
+      }
+
+      console.log(user);
+
+
+      this.utils.saveInLocalStorage('user', user);
+
+      this.utils.routerLink('/main/home');
+
+    }).catch(err => {
       this.utils.showToast({
         message: err.message,
         color: 'danger',
         position: 'middle',
         icon: 'alert-circle-outline',
         duration: 10000
-        }).finally(() => {
-          loading.dismiss();
-        });
+      })
 
 
-  });
+    }).finally(() => {
+      loading.dismiss();
+    });;
 
 
 

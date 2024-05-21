@@ -7,14 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { ForgotPasswordPageRoutingModule } from './forgot-password-routing.module';
 
 import { ForgotPasswordPage } from './forgot-password.page';
+import { AuthPageRoutingModule } from '../auth-routing.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ForgotPasswordPageRoutingModule
+    ForgotPasswordPageRoutingModule,
+    AuthPageRoutingModule,
+    SharedModule
   ],
   declarations: [ForgotPasswordPage]
 })
-export class ForgotPasswordPageModule {}
+export class ForgotPasswordPageModule { }

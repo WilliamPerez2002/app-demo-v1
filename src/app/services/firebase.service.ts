@@ -2,10 +2,11 @@ import { Injectable, inject } from '@angular/core';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
-  getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail
+  getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail,
+  User as FirebaseUser
 } from 'firebase/auth';
 import { User } from '../models/user.model';
-import { getFirestore, setDoc, doc } from '@angular/fire/firestore';
+import { getFirestore, setDoc, doc, getDoc } from '@angular/fire/firestore';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
@@ -41,4 +42,14 @@ export class FirebaseService {
     return sendPasswordResetEmail(getAuth(), email);
   }
 
+  async getUserData(uid: string): Promise<any> {
+    const userDoc = await getDoc(doc(getFirestore(), 'users', uid));
+    if (userDoc.exists()) {
+      return userDoc.data();
+    } else {
+      throw new Error('No such user!');
+    }
+  }
 }
+
+
