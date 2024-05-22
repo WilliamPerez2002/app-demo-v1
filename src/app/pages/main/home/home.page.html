@@ -1,18 +1,20 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-buttons slot="end">
-      <ion-button routerLink="/main/profile">
-        <ion-icon name="person-circle-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title>home</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [showMenu]="true" title="Inicio"></app-header>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <!-- Cuadro de resumen de ventas -->
+  <ion-card
+    mode="ios"
+    color="secondary"
+    class="d-flex-center ion-text-center"
+    *ngIf="!loading && products.length"
+  >
+  </ion-card>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">home</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addUpdateProduct()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
